@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { UploadCloud } from 'lucide-react'
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import Link from 'next/link'
+import Image from 'next/image'
 
 // Type definitions
 interface UploadResponse {
@@ -32,18 +32,16 @@ export default function ImageTo3DModel() {
   const [success, setSuccess] = useState<string | null>(null)
   const [taskID, setTaskID] = useState<string | null>(null)
 
-  // Handle image selection
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
-      // Validate file type and size
       const validTypes = ['image/jpeg', 'image/png', 'image/webp']
       if (!validTypes.includes(file.type)) {
         setError('Please select a valid image file (JPEG, PNG, or WebP)')
         return
       }
 
-      const MAX_SIZE = 10 * 1024 * 1024 // 10MB
+      const MAX_SIZE = 10 * 1024 * 1024
       if (file.size > MAX_SIZE) {
         setError('Image size must be less than 10MB')
         return
@@ -56,7 +54,6 @@ export default function ImageTo3DModel() {
     }
   }
 
-  // Function to upload image and get the token
   const uploadImage = async () => {
     if (!selectedImage) return
 
@@ -130,8 +127,6 @@ export default function ImageTo3DModel() {
       setError(error instanceof Error ? error.message : 'Failed to fetch task');
     }
   };
-
-  // Function to convert image to 3D
   const convertTo3D = async () => {
     if (!imageToken) return
 
@@ -206,12 +201,13 @@ export default function ImageTo3DModel() {
                 >
                   {selectedImage ? (
                     <div className="relative h-64 w-64 overflow-hidden rounded-lg">
-                      <img
+                      <Image
+                      height={64}
+                      width={64}
                         src={URL.createObjectURL(selectedImage)}
                         alt="Selected"
                         className="h-full w-full object-cover"
                         onLoad={() => {
-                          // Clean up the object URL when the image loads
                           URL.revokeObjectURL(URL.createObjectURL(selectedImage))
                         }}
                       />
