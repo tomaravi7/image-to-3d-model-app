@@ -16,8 +16,8 @@ This project provides an easy-to-use interface for uploading images and converti
 ## Installation
 1. Clone the Repository
 ```
-git clone https://github.com/your-username/image-to-3d-converter.git
-cd image-to-3d-converter
+git clone https://github.com/tomaravi7/image-to-3d-model-app
+cd image-to-3d-app
 ```
 2. Install Dependencies
 ```
